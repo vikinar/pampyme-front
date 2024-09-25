@@ -1,29 +1,21 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import * as Localization from 'expo-localization'; // for React Native
-import { NativeModules, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
-const getDeviceLanguage = (): string => {
-  const locale =
-    Platform.OS === 'ios'
-      ? NativeModules.SettingsManager.settings.AppleLocale ||
-      NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13 and later
-      : NativeModules.I18nManager.localeIdentifier;
-
-  return locale ? locale.split('_')[0] : Localization.locale.split('-')[0];
-};
+const loadPath = '/locales/{{lng}}/{{ns}}.json';
 
 i18n
-  .use(HttpBackend)
-  .use(LanguageDetector)
-  .use(initReactI18next)
+  .use(HttpBackend) // Use backend for loading translations
+  .use(initReactI18next) // Passes i18n down to react-i18next
   .init({
+    compatibilityJSON: 'v3',
     fallbackLng: 'en',
-    lng: getDeviceLanguage(), // default language based on the device
+    lng: 'ru',
+    ns: 'common',
+    defaultNS: 'common',
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json',
+      loadPath: loadPath,
     },
     interpolation: {
       escapeValue: false, // React already escapes by default

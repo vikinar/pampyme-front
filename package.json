@@ -17,6 +17,8 @@
   },
   "packageManager": "yarn@4.1.1",
   "dependencies": {
+    "@formatjs/intl-getcanonicallocales": "^2.3.0",
+    "@formatjs/intl-pluralrules": "^5.2.14",
     "@reduxjs/toolkit": "^2.2.7",
     "expo-localization": "^15.0.3",
     "formik": "^2.4.6",

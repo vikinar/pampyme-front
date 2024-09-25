@@ -1,6 +1,7 @@
 import { Text, useSx, View, H1, TextInput, Pressable } from 'dripsy'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import { useTranslation } from 'react-i18next'
 
 export function HomeScreen() {
   const sx = useSx()
@@ -11,6 +12,8 @@ export function HomeScreen() {
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
   })
+
+  const {t} = useTranslation()
 
   return (
     <View
@@ -28,7 +31,7 @@ export function HomeScreen() {
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
           <>
             <TextInput
-              placeholder="Email"
+              placeholder={t('email')}
               sx={{
                 width: '100%',
                 padding: 12,
@@ -48,7 +51,7 @@ export function HomeScreen() {
             )}
 
             <TextInput
-              placeholder="Password"
+              placeholder={t('password')}
               sx={{
                 width: '100%',
                 padding: 12,
