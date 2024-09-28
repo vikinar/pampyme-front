@@ -5,14 +5,14 @@ import 'intl-pluralrules'
 
 import { Platform } from 'react-native';
 
-const loadPath = 'locales/{{lng}}/{{ns}}.json';
+const loadPath = '../../locales/{{lng}}/{{ns}}.json';
 
 i18n
-  .use(HttpBackend)
-  .use(initReactI18next)
+  .use(HttpBackend) // Use backend for loading translations
+  .use(initReactI18next) // Passes i18n down to react-i18next
   .init({
-    // compatibilityJSON: 'v3',
-    fallbackLng: 'ru',
+    compatibilityJSON: 'v3',
+    fallbackLng: 'en',
     lng: 'ru',
     ns: 'common',
     defaultNS: 'common',

@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { HomeScreen } from '../../features/home/screen'
 import { UserDetailScreen } from '../../features/user/detail-screen'
+import { StatusBar, View } from 'react-native';
 
 const Stack = createNativeStackNavigator<{
   home: undefined
@@ -12,12 +13,16 @@ const Stack = createNativeStackNavigator<{
 
 export function NativeNavigation() {
   return (
+    <View style={{ flex: 1 }}>
+      <StatusBar barStyle="dark-content" translucent={true} backgroundColor="transparent" />
     <Stack.Navigator>
       <Stack.Screen
         name="home"
         component={HomeScreen}
         options={{
           title: 'Home',
+          headerShown: false,
+
         }}
       />
       <Stack.Screen
@@ -28,5 +33,6 @@ export function NativeNavigation() {
         }}
       />
     </Stack.Navigator>
+    </View>
   )
 }

@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "solito-blank",
-    "slug": "solito-blank",
+    "name": "Pampy Me",
+    "slug": "pampy-me",
     "version": "1.0.0",
-    "scheme": "solito-blank",
+    "scheme": "pampy-me",
     "platforms": [
       "ios",
       "android"
