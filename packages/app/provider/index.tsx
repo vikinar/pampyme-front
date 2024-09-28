@@ -1,9 +1,10 @@
+import { I18nextProvider } from 'react-i18next'
+import { Provider as StoreProvider } from 'react-redux'
+
+import i18n from '../../../i18n'
+import store from '../../../store'
 import { Dripsy } from './dripsy'
 import { NavigationProvider } from './navigation'
-import { Provider as StoreProvider} from 'react-redux'
-import store from '../../../store'
-import { I18nextProvider } from 'react-i18next'
-import i18n from '../../../i18n'
 
 export function Provider({ children }: { children: React.ReactNode }) {
   return (

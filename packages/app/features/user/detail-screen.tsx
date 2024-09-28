@@ -1,4 +1,4 @@
-import { View, Text } from 'dripsy'
+import { Text, View } from 'dripsy'
 import { createParam } from 'solito'
 import { TextLink } from 'solito/link'
 

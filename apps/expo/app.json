@@ -4,10 +4,7 @@
     "slug": "pampy-me",
     "version": "1.0.0",
     "scheme": "pampy-me",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "ios": {
       "bundleIdentifier": "com.solito.blank"
     }

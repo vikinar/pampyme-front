@@ -1,9 +1,8 @@
-import 'raf/polyfill'
-import 'setimmediate'
-
 import { Provider } from 'app/provider'
 import Head from 'next/head'
+import 'raf/polyfill'
 import React from 'react'
+import 'setimmediate'
 import type { SolitoAppProps } from 'solito'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
