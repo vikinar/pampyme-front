@@ -1,7 +1,7 @@
 import { Provider } from 'app/provider'
 import Head from 'next/head'
 import 'raf/polyfill'
-import React from 'react'
+// import React from 'react'
 import 'setimmediate'
 import type { SolitoAppProps } from 'solito'
 
