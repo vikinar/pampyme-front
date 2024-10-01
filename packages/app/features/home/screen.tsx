@@ -20,6 +20,9 @@ export function HomeScreen() {
     password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref('password'), ''], 'Passwords must match') // Validation to ensure both passwords match
+      .required('Confirm your password'),
   })
 
   const { t } = useTranslation()
@@ -52,16 +55,17 @@ export function HomeScreen() {
     }
   }, [keyboardHeight])
 
-  const handleDismissKeyboard = () => Keyboard.dismiss()
+  const handleDismissKeyboard = () =>
+    Platform.OS !== 'web' && Keyboard.dismiss()
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={0} // Вы можете настроить это значение, если нужно
+      // keyboardVerticalOffset={0} // Вы можете настроить это значение, если нужно
     >
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
-        <Animated.View // Используем Animated.View для плавной анимации
+        <Animated.View
           style={{
             flex: 1,
             paddingBottom: keyboardHeight, // Смещение вниз на высоту клавиатуры
@@ -79,11 +83,13 @@ export function HomeScreen() {
           >
             <H1 sx={{ fontWeight: '800' }}>PM.</H1>
             <Formik
-              initialValues={{ email: '', password: '' }}
+              initialValues={{ email: '', password: '', repeatPassword: '' }}
               validationSchema={validationSchema}
+              validateOnChange={false}
               onSubmit={(values) => {
                 console.log('email', values.email)
                 console.log('password', values.password)
+                console.log('repeat password', values.repeatPassword)
               }}
             >
               {({
@@ -93,6 +99,7 @@ export function HomeScreen() {
                 values,
                 errors,
                 touched,
+                isValid,
               }) => (
                 <>
                   <TextInput
@@ -109,14 +116,14 @@ export function HomeScreen() {
                     onChangeText={handleChange('email')}
                     onBlur={handleBlur('email')}
                     value={values.email}
-                    keyboardType="email-address"
+                    inputMode="email"
                     autoCapitalize="none"
                     autoComplete={'off'}
                     autoFocus={true}
                   />
                   {touched.email && errors.email && (
                     <Text sx={{ color: 'red', marginBottom: 8 }}>
-                      {errors.email}
+                      {errors?.email}
                     </Text>
                   )}
 
@@ -134,18 +141,18 @@ export function HomeScreen() {
                     onChangeText={handleChange('password')}
                     onBlur={handleBlur('password')}
                     value={values.password}
-                    keyboardType={'visible-password'}
+                    inputMode={'text'}
                     autoComplete={'password'}
                     secureTextEntry
                   />
                   {touched.password && errors.password && (
                     <Text sx={{ color: 'red', marginBottom: 8 }}>
-                      {errors.password}
+                      {errors?.password}
                     </Text>
                   )}
 
                   <TextInput
-                    placeholder={t('password')}
+                    placeholder={t('repeat_password')}
                     placeholderTextColor="rgba(0, 0, 0, 0.7)"
                     sx={{
                       width: '100%',
@@ -155,20 +162,21 @@ export function HomeScreen() {
                       borderColor: 'gray',
                       borderRadius: 4,
                     }}
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    value={values.password}
-                    keyboardType={'visible-password'}
-                    autoComplete={'password'}
+                    onChangeText={handleChange('repeatPassword')}
+                    onBlur={handleBlur('repeatPassword')}
+                    value={values.repeatPassword}
+                    inputMode={'text'}
+                    autoComplete={'off'}
                     secureTextEntry
                   />
-                  {touched.password && errors.password && (
+                  {touched.repeatPassword && errors.repeatPassword && (
                     <Text sx={{ color: 'red', marginBottom: 8 }}>
-                      {errors.password}
+                      {errors.repeatPassword}
                     </Text>
                   )}
 
                   <Pressable
+                    // disabled={!isValid}
                     onPress={() => handleSubmit()}
                     sx={{
                       backgroundColor: '#2628dd',
