@@ -26,7 +26,9 @@ export function NativeNavigation() {
           component={HomeScreen}
           options={{
             title: 'Home',
-            headerShown: false,
+            // headerShown: false,
+            headerBlurEffect: 'dark',
+            headerStyle: {},
           }}
         />
         <Stack.Screen

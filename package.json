@@ -44,6 +44,7 @@
     "i18next-http-backend": "^2.6.1",
     "intl-pluralrules": "^2.0.1",
     "react-i18next": "^15.0.2",
+    "react-native-fs": "^2.20.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-localize": "^3.2.1",
     "react-native-web": "^0.19.12",

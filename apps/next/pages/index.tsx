@@ -1,3 +1,3 @@
-import { HomeScreen } from 'app/features/home/screen'
+import Index from './[lang]'
 
-export default HomeScreen
+export default Index

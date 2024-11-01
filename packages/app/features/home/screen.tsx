@@ -1,6 +1,7 @@
-import { H1, Pressable, Text, TextInput, useSx } from 'dripsy'
+import LanguageSwitcher from 'app/components/LanguageSwitcher'
+import { H1, Pressable, Text, TextInput, View, useSx } from 'dripsy'
 import { Formik } from 'formik'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Animated,
@@ -12,6 +13,8 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import * as Yup from 'yup'
 
 export function HomeScreen() {
+  const [isInitialized, setIsInitialized] = useState(false)
+
   const sx = useSx()
   const keyboardHeight = useRef(new Animated.Value(0)).current // Инициализируем анимированное значение для высоты клавиатуры
 
@@ -58,12 +61,15 @@ export function HomeScreen() {
   const handleDismissKeyboard = () =>
     Platform.OS !== 'web' && Keyboard.dismiss()
 
+  console.log(t('email'))
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       // keyboardVerticalOffset={0} // Вы можете настроить это значение, если нужно
     >
+      <LanguageSwitcher />
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
         <Animated.View
           style={{
@@ -119,7 +125,7 @@ export function HomeScreen() {
                     inputMode="email"
                     autoCapitalize="none"
                     autoComplete={'off'}
-                    autoFocus={true}
+                    // autoFocus={true}
                   />
                   {touched.email && errors.email && (
                     <Text sx={{ color: 'red', marginBottom: 8 }}>
