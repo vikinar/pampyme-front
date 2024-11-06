@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "app/*": ["./packages/app/*"],
-      "*": ["*", "*.native", "*.web"]
-    }
+      "app/*": [
+        "./packages/app/*",
+        "./packages/app/*.native",
+        "./packages/app/*.web"
+      ],
+    },
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
   },
+  "include": ["**/*.ts", "**/*.tsx"],
   "extends": "expo/tsconfig.base"
 }

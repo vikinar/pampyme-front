@@ -1,4 +1,4 @@
-import { Text, View } from 'dripsy'
+import { Text } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Provider as StoreProvider } from 'react-redux'
@@ -7,6 +7,7 @@ import { Provider as StoreProvider } from 'react-redux'
 import { initializeI18n } from '../../../i18n'
 import { i18n } from '../../../i18n'
 import store from '../../../store'
+// @ts-ignore
 import { useCurrentRoute } from '../../../utils/getCurrentRoute'
 import { Dripsy } from './dripsy'
 import { NavigationProvider } from './navigation'

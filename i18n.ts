@@ -1,4 +1,3 @@
-import { Asset } from 'expo-asset'
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import HttpBackend from 'i18next-http-backend'
@@ -11,9 +10,8 @@ const assetFiles = {
   hy: require('./assets/locales/hy/common.json'),
 }
 
-console.log('asdkljdkjasldjklas', assetFiles.ru)
-
 let FileSystem
+
 if (Platform.OS !== 'web') {
   FileSystem = require('expo-file-system')
 }
@@ -44,7 +42,6 @@ const ensureTranslationFilesExist = async (lng) => {
 
     await FileSystem.makeDirectoryAsync(localeFolder, { intermediates: true })
 
-    // Пишем JSON напрямую из assetFiles
     const jsonContent = JSON.stringify(assetFiles[lng])
     await FileSystem.writeAsStringAsync(translationFile, jsonContent)
     console.log(`Файл перевода скопирован в: ${translationFile}`)
@@ -57,27 +54,21 @@ const changeLanguage = async (lng: string) => {
   const currentLng = i18n.language
 
   if (Platform.OS !== 'web') {
-    // Удаляем старые переводы для текущего языка
     if (currentLng) {
       i18n.removeResourceBundle(currentLng, 'common')
     }
-
-    // Обеспечиваем наличие файлов перевода для нового языка
     await ensureTranslationFilesExist(lng)
 
-    // Загружаем новые переводы
     const translations = await loadTranslationsForNative(lng, 'common')
     if (Object.keys(translations).length > 0) {
       i18n.addResourceBundle(lng, 'common', translations, true, true)
     }
   }
-
-  // Переключаем язык
   await i18n.changeLanguage(lng)
 }
 
 const initializeI18n = async () => {
-  const lng = i18n.language || 'ru'
+  const lng = Platform.OS !== 'web' ? i18n.language || 'ru' : i18n.language
 
   if (Platform.OS !== 'web') {
     await ensureTranslationFilesExist(lng)

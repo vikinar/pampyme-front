@@ -27,6 +27,20 @@ module.exports = {
   settings: {
     next: {
       rootDir: 'apps/next/',
+      'import/resolver': {
+        node: {
+          extensions: [
+            '.web.ts',
+            '.native.ts',
+            '.web.tsx',
+            '.native.tsx',
+            '.ts',
+            '.tsx',
+            '.js',
+            '.jsx',
+          ],
+        },
+      },
     },
   },
   root: true,
