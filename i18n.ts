@@ -44,9 +44,9 @@ const ensureTranslationFilesExist = async (lng) => {
 
     const jsonContent = JSON.stringify(assetFiles[lng])
     await FileSystem.writeAsStringAsync(translationFile, jsonContent)
-    console.log(`Файл перевода скопирован в: ${translationFile}`)
+    // console.log(`Файл перевода скопирован в: ${translationFile}`)
   } else {
-    console.log(`Файл перевода уже существует в: ${translationFile}`)
+    // console.log(`Файл перевода уже существует в: ${translationFile}`)
   }
 }
 

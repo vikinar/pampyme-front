@@ -13,4 +13,10 @@ defaultConfig.resolver.sourceExts.push(
   'jsx'
 )
 
+module.exports = (async () => {
+  const config = await getDefaultConfig()
+  config.resolver.assetExts.push('otf')
+  return config
+})()
+
 module.exports = defaultConfig

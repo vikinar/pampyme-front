@@ -61,8 +61,6 @@ export function HomeScreen() {
   const handleDismissKeyboard = () =>
     Platform.OS !== 'web' && Keyboard.dismiss()
 
-  console.log(t('email'))
-
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -87,7 +85,9 @@ export function HomeScreen() {
             keyboardShouldPersistTaps="handled"
             scrollEnabled={true}
           >
-            <H1 sx={{ fontWeight: '800' }}>PM.</H1>
+            <H1 sx={{ fontWeight: '800', fontFamily: 'Grapalat Regular' }}>
+              PM.
+            </H1>
             <Formik
               initialValues={{ email: '', password: '', repeatPassword: '' }}
               validationSchema={validationSchema}
@@ -118,6 +118,8 @@ export function HomeScreen() {
                       borderWidth: 1,
                       borderColor: 'gray',
                       borderRadius: 4,
+                      fontFamily: 'Grapalat Regular',
+                      fontSize: 16,
                     }}
                     onChangeText={handleChange('email')}
                     onBlur={handleBlur('email')}
@@ -143,6 +145,9 @@ export function HomeScreen() {
                       borderWidth: 1,
                       borderColor: 'gray',
                       borderRadius: 4,
+                      fontFamily: 'Grapalat Regular',
+                      fontWeight: '500',
+                      fontSize: 16,
                     }}
                     onChangeText={handleChange('password')}
                     onBlur={handleBlur('password')}
@@ -167,6 +172,8 @@ export function HomeScreen() {
                       borderWidth: 1,
                       borderColor: 'gray',
                       borderRadius: 4,
+                      // fontFamily: 'Grapalat Regular',
+                      fontSize: 16,
                     }}
                     onChangeText={handleChange('repeatPassword')}
                     onBlur={handleBlur('repeatPassword')}

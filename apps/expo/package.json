@@ -2,11 +2,12 @@
   "dependencies": {
     "app": "*",
     "expo": "^51.0.34",
+    "expo-app-loading": "^2.1.1",
     "expo-file-system": "~17.0.1",
     "expo-image": "~1.13.0",
     "expo-linear-gradient": "~13.0.2",
     "expo-linking": "~6.3.1",
-    "expo-splash-screen": "~0.27.6",
+    "expo-splash-screen": "^0.27.6",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

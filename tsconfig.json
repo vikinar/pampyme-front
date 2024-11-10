@@ -12,6 +12,7 @@
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
+    "types": ["react", "react-native", "dripsy"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "extends": "expo/tsconfig.base"

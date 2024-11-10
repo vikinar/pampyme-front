@@ -42,6 +42,11 @@ module.exports = {
         },
       },
     },
+    'import/resolver': {
+    node: {
+      extensions: ['.web.ts', '.native.ts', '.ts', '.tsx', '.js', '.jsx'],
+    },
+  },
   },
   root: true,
 }

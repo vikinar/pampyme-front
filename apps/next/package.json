@@ -17,6 +17,8 @@
   },
   "devDependencies": {
     "@types/node": "17.0.21",
-    "eslint-config-next": "13.2.0"
+    "babel-loader": "^9.2.1",
+    "eslint-config-next": "13.2.0",
+    "metro-react-native-babel-preset": "^0.77.0"
   }
 }

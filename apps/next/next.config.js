@@ -1,4 +1,5 @@
 const { withExpo } = require('@expo/next-adapter')
+const path = require('node:path')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -20,6 +21,33 @@ const nextConfig = {
     '@expo/html-elements',
     'react-native-gesture-handler',
   ],
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      'react-native$': 'react-native-web',
+      'expo-font': false,
+      'expo-asset': false,
+    }
+
+    config.module.rules.push({
+      test: /\.js$/,
+      exclude: [
+        path.resolve(__dirname, 'node_modules/@react-native'),
+        path.resolve(__dirname, 'node_modules/react-native'),
+      ],
+    })
+
+    // Поддержка шрифтов и других бинарных файлов
+    config.module.rules.push({
+      test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      type: 'asset/resource', // Указываем Webpack, что это бинарные ресурсы
+      generator: {
+        filename: 'static/fonts/[name][ext]', // Путь сохранения ресурсов
+      },
+    })
+
+    return config
+  },
 }
 
 module.exports = withExpo(nextConfig)

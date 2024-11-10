@@ -1,46 +1,87 @@
-import { Text } from 'dripsy'
-import { useEffect, useState } from 'react'
+import { DripsyProvider, Text } from 'dripsy'
+import * as Font from 'expo-font'
+import { useFonts } from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen'
+import { ReactNode, useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
+import { Platform } from 'react-native'
 import { Provider as StoreProvider } from 'react-redux'
 
-// import i18n from '../../../i18n'
 import { initializeI18n } from '../../../i18n'
 import { i18n } from '../../../i18n'
 import store from '../../../store'
-// @ts-ignore
-import { useCurrentRoute } from '../../../utils/getCurrentRoute'
+import { createTheme } from '../theme'
 import { Dripsy } from './dripsy'
 import { NavigationProvider } from './navigation'
 
-export function Provider({ children }: { children: React.ReactNode }) {
+SplashScreen?.preventAutoHideAsync()
+
+if (Platform.OS !== 'web') {
+  const Font = require('expo-font')
+
+  async function loadFonts() {
+    await Font.loadAsync({
+      'Grapalar Regular': require('../../../assets/fonts/GHEAGrpalatReg.otf'),
+    })
+  }
+
+  loadFonts()
+}
+
+export function Provider({ children }: { children: ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false)
+
+  // const [loaded] = useFonts({
+  //   ['Grapalat Regular']: require('../../../assets/fonts/GHEAGrpalatReg.otf'),
+  // })
+
+  // useEffect(() => {
+  //   if (!loaded) return
+  // }, [loaded])
+
   useEffect(() => {
     const initializeTranslations = async () => {
       await initializeI18n() // Дождитесь инициализации i18n
-      // setIsInitialized(true) // Установите состояние готовности
+      setIsInitialized(true) // Установите состояние готовности
     }
-
     initializeTranslations().then(() => setIsInitialized(true))
   }, [])
 
-  const currentRoute = useCurrentRoute()
+  const [appIsReady, setAppIsReady] = useState(false)
 
   useEffect(() => {
-    if (currentRoute) {
-      console.log('Current Route:', currentRoute)
-      // Можете добавить логику для обработки текущего роута
+    async function prepareApp() {
+      try {
+        await Font.loadAsync({
+          'Grapalat Regular': require('../../../assets/fonts/GHEAGrpalatReg.otf'),
+        })
+        setAppIsReady(true)
+      } catch (e) {
+        console.warn(e)
+      } finally {
+        // Скрываем экран SplashScreen после завершения загрузки
+        await SplashScreen.hideAsync()
+      }
     }
-  }, [currentRoute])
+
+    prepareApp()
+  }, [])
+
+  if (!appIsReady) {
+    return null
+  }
 
   return (
-    <StoreProvider store={store}>
-      <NavigationProvider>
-        <I18nextProvider i18n={i18n}>
-          <Dripsy>
-            {!isInitialized ? <Text>Загрузка переводов...</Text> : children}
-          </Dripsy>
-        </I18nextProvider>
-      </NavigationProvider>
-    </StoreProvider>
+    <DripsyProvider theme={createTheme()}>
+      <StoreProvider store={store}>
+        <NavigationProvider>
+          <I18nextProvider i18n={i18n}>
+            <Dripsy>
+              {!isInitialized ? <Text>Загрузка переводов...</Text> : children}
+            </Dripsy>
+          </I18nextProvider>
+        </NavigationProvider>
+      </StoreProvider>
+    </DripsyProvider>
   )
 }

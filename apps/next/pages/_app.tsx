@@ -5,6 +5,8 @@ import 'raf/polyfill'
 import 'setimmediate'
 import type { SolitoAppProps } from 'solito'
 
+import '../globals.css'
+
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   return (
     <>
