@@ -4,7 +4,7 @@ const getFontFamily = (language: string) => {
   return language === 'GHEAGrpalatReg'
 }
 
-export const createTheme = () =>
+export const theme = () =>
   makeTheme({
     text: {
       default: {

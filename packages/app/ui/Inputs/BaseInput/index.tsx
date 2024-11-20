@@ -3,6 +3,7 @@ import { TextInput, useSx } from 'dripsy'
 import { DripsyTextInputProps } from 'dripsy/build/core/components/TextInput'
 import { FieldInputProps } from 'formik'
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 
 interface InputProps extends FieldInputProps<string> {
   placeholder: string
@@ -27,17 +28,24 @@ const BaseInput: React.FC<InputProps> = ({
   const sx = useSx()
 
   return (
-    <>
+    <TouchableOpacity
+      style={{
+        width: '100%',
+        marginBottom: 8,
+      }}
+    >
       <TextInput
         placeholder={placeholder}
         placeholderTextColor="rgba(0, 0, 0, 0.7)"
         sx={{
           width: '100%',
-          padding: 12,
-          marginBottom: 16,
-          borderWidth: 1,
-          borderColor: 'gray',
-          borderRadius: 4,
+          padding: 10,
+          marginBottom: 5,
+          borderWidth: 2,
+          borderColor: touched && error ? 'red' : 'rgba(108, 122, 137, .8)',
+          borderRadius: 8,
+          fontFamily: 'Grapalat Regular',
+          fontSize: 16,
         }}
         onChangeText={onChange}
         onBlur={onBlur}
@@ -47,7 +55,7 @@ const BaseInput: React.FC<InputProps> = ({
         secureTextEntry={secureTextEntry}
       />
       {touched && error && <ErrorMessage message={error} />}
-    </>
+    </TouchableOpacity>
   )
 }
 

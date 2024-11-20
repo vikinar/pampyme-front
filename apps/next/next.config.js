@@ -21,7 +21,7 @@ const nextConfig = {
     '@expo/html-elements',
     'react-native-gesture-handler',
   ],
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       'react-native$': 'react-native-web',

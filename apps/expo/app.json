@@ -6,10 +6,17 @@
     "scheme": "pampy-me",
     "platforms": ["ios", "android"],
     "ios": {
-      "bundleIdentifier": "com.solito.blank"
+      "bundleIdentifier": "com.solito.blank",
+      "infoPlist": {
+        "UIViewControllerBasedStatusBasAppearance": true
+      }
     },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.example.myapp"
+    }
   }
 }

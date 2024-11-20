@@ -1,7 +1,5 @@
-import { StatusBar, View } from 'react-native'
-
+import { StatusBar, SafeAreaView, Platform } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
 import { HomeScreen } from '../../features/home/screen'
 import { UserDetailScreen } from '../../features/user/detail-screen'
 
@@ -14,11 +12,12 @@ const Stack = createNativeStackNavigator<{
 
 export function NativeNavigation() {
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
       <StatusBar
-        barStyle="dark-content"
-        translucent={true}
-        backgroundColor="transparent"
+        barStyle={Platform.OS === 'ios' ? 'light-content' : 'default'}
+        translucent={false}
+        backgroundColor="white"
+        hidden={false}
       />
       <Stack.Navigator>
         <Stack.Screen
@@ -26,9 +25,18 @@ export function NativeNavigation() {
           component={HomeScreen}
           options={{
             title: 'Home',
-            // headerShown: false,
-            headerBlurEffect: 'dark',
-            headerStyle: {},
+            headerShown: false,
+            // statusBarHidden: false, // Эти опции не являются стандартными для react-navigation
+            // statusBarStyle: 'auto',
+            // statusBarColor: 'darkblue',
+            // statusBarAnimation: 'slide',
+            // headerBackVisible: true,
+            // headerBackButtonMenuEnabled: true,
+            // headerBlurEffect: 'dark',
+            // headerStyle: {
+            //   backgroundColor: 'black', // Фон заголовка
+            // },
+            // headerTintColor: '#007aff', // Цвет кнопки назад
           }}
         />
         <Stack.Screen
@@ -39,6 +47,6 @@ export function NativeNavigation() {
           }}
         />
       </Stack.Navigator>
-    </View>
+    </SafeAreaView>
   )
 }

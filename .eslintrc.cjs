@@ -21,6 +21,7 @@ module.exports = {
   },
   plugins: ['import', 'react', '@typescript-eslint', 'prettier'],
   rules: {
+    'react/prop-types': 'off',
     '@typescript-eslint/no-require-imports': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
@@ -43,10 +44,10 @@ module.exports = {
       },
     },
     'import/resolver': {
-    node: {
-      extensions: ['.web.ts', '.native.ts', '.ts', '.tsx', '.js', '.jsx'],
+      node: {
+        extensions: ['.web.ts', '.native.ts', '.ts', '.tsx', '.js', '.jsx'],
+      },
     },
-  },
   },
   root: true,
 }

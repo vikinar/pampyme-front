@@ -1,4 +1,6 @@
-import LanguageSwitcher from 'app/components/LanguageSwitcher'
+import LanguageSwitcher from 'app/components/shared/LanguageSwitcher'
+import { BaseButton } from 'app/ui/Buttons/BaseButton/BaseButton'
+import BaseInput from 'app/ui/Inputs/BaseInput'
 import { H1, Pressable, Text, TextInput, View, useSx } from 'dripsy'
 import { Formik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
@@ -13,8 +15,6 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native'
 import * as Yup from 'yup'
 
 export function HomeScreen() {
-  const [isInitialized, setIsInitialized] = useState(false)
-
   const sx = useSx()
   const keyboardHeight = useRef(new Animated.Value(0)).current // Инициализируем анимированное значение для высоты клавиатуры
 
@@ -24,7 +24,7 @@ export function HomeScreen() {
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
     repeatPassword: Yup.string()
-      .oneOf([Yup.ref('password'), ''], 'Passwords must match') // Validation to ensure both passwords match
+      .oneOf([Yup.ref('password'), ''], 'Passwords must match')
       .required('Confirm your password'),
   })
 
@@ -64,8 +64,8 @@ export function HomeScreen() {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      // keyboardVerticalOffset={0} // Вы можете настроить это значение, если нужно
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={0} // Вы можете настроить это значение, если нужно
     >
       <LanguageSwitcher />
       <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
@@ -108,102 +108,41 @@ export function HomeScreen() {
                 isValid,
               }) => (
                 <>
-                  <TextInput
+                  <BaseInput
+                    name={'email'}
                     placeholder={t('email')}
-                    placeholderTextColor="rgba(0, 0, 0, 0.7)"
-                    sx={{
-                      width: '100%',
-                      padding: 12,
-                      marginBottom: 16,
-                      borderWidth: 1,
-                      borderColor: 'gray',
-                      borderRadius: 4,
-                      fontFamily: 'Grapalat Regular',
-                      fontSize: 16,
-                    }}
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
                     value={values.email}
-                    inputMode="email"
-                    autoCapitalize="none"
-                    autoComplete={'off'}
-                    // autoFocus={true}
+                    onChange={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    error={errors?.email}
+                    touched={touched.email}
                   />
-                  {touched.email && errors.email && (
-                    <Text sx={{ color: 'red', marginBottom: 8 }}>
-                      {errors?.email}
-                    </Text>
-                  )}
 
-                  <TextInput
+                  <BaseInput
+                    name={'password'}
                     placeholder={t('password')}
-                    placeholderTextColor="rgba(0, 0, 0, 0.7)"
-                    sx={{
-                      width: '100%',
-                      padding: 12,
-                      marginBottom: 16,
-                      borderWidth: 1,
-                      borderColor: 'gray',
-                      borderRadius: 4,
-                      fontFamily: 'Grapalat Regular',
-                      fontWeight: '500',
-                      fontSize: 16,
-                    }}
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
                     value={values.password}
-                    inputMode={'text'}
-                    autoComplete={'password'}
-                    secureTextEntry
+                    onChange={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    error={errors?.password}
+                    touched={touched.password}
                   />
-                  {touched.password && errors.password && (
-                    <Text sx={{ color: 'red', marginBottom: 8 }}>
-                      {errors?.password}
-                    </Text>
-                  )}
 
-                  <TextInput
+                  <BaseInput
+                    name={'repeat_password'}
                     placeholder={t('repeat_password')}
-                    placeholderTextColor="rgba(0, 0, 0, 0.7)"
-                    sx={{
-                      width: '100%',
-                      padding: 12,
-                      marginBottom: 16,
-                      borderWidth: 1,
-                      borderColor: 'gray',
-                      borderRadius: 4,
-                      // fontFamily: 'Grapalat Regular',
-                      fontSize: 16,
-                    }}
-                    onChangeText={handleChange('repeatPassword')}
-                    onBlur={handleBlur('repeatPassword')}
                     value={values.repeatPassword}
-                    inputMode={'text'}
-                    autoComplete={'off'}
-                    secureTextEntry
+                    onChange={handleChange('repeat_password')}
+                    onBlur={handleBlur('repeat_password')}
+                    error={errors?.repeatPassword}
+                    touched={touched.repeatPassword}
                   />
-                  {touched.repeatPassword && errors.repeatPassword && (
-                    <Text sx={{ color: 'red', marginBottom: 8 }}>
-                      {errors.repeatPassword}
-                    </Text>
-                  )}
 
-                  <Pressable
-                    // disabled={!isValid}
-                    onPress={() => handleSubmit()}
-                    sx={{
-                      backgroundColor: '#2628dd',
-                      padding: 12,
-                      borderRadius: 4,
-                      alignItems: 'center',
-                      width: '100%',
-                      maxWidth: '300',
-                    }}
-                  >
-                    <Text sx={{ color: 'white', fontWeight: 'bold' }}>
-                      Submit
-                    </Text>
-                  </Pressable>
+                  <BaseButton
+                    disabled={!isValid}
+                    onClick={handleSubmit}
+                    text={'Submit'}
+                  />
                 </>
               )}
             </Formik>

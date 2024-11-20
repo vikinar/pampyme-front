@@ -11,7 +11,8 @@ import {
 } from 'react-native'
 import { useRouter } from 'solito/router'
 
-import { changeLanguage } from '../../../i18n'
+// @ts-ignore
+import { changeLanguage } from '../../../../i18n'
 
 const LanguageSwitcher = () => {
   const router = useRouter()
@@ -37,14 +38,12 @@ const LanguageSwitcher = () => {
     setModalVisible(false)
   }
 
-  // Language options for the dropdown
   const languageOptions = [
     { label: 'English', value: 'en' },
     { label: 'Русский', value: 'ru' },
     { label: 'Հայերեն', value: 'hy' },
   ]
 
-  // Get the label for the currently selected language
   const currentLanguageLabel =
     languageOptions.find((option) => option.value === currentLang)?.label ||
     'Select Language'
